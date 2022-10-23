@@ -22,7 +22,11 @@ import errorHandler from './lib/error-handler.js'
 const ADDOK_SERVICE_URL = process.env.ADDOK_SERVICE_URL || 'https://api-adresse.data.gouv.fr'
 
 const app = express()
-const upload = multer()
+const upload = multer({
+  limits: {
+    fileSize: 50 * 1014 * 1024 // 50 MB
+  }
+})
 
 app.disable('x-powered-by')
 
@@ -32,20 +36,42 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
 
-app.post('/geocode', upload.single('data'), w(async (req, res) => {
-  if (!req.file) {
-    throw createError(400, 'A CSV file must be provided in data field')
+const uploadFiles = [
+  {name: 'file', maxCount: 1},
+  {name: 'options', maxCount: 1}
+]
+
+app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
+  const fileField = req.files.find(f => f.fieldname === 'file')
+  const optionsField = req.files.find(f => f.fieldname === 'options')
+
+  if (!fileField) {
+    throw createError(400, 'A CSV file must be provided in file field')
+  }
+
+  if (optionsField && optionsField.size > 100 * 1024) {
+    throw createError(400, 'options field is too big')
+  }
+
+  let options = {}
+
+  if (optionsField) {
+    try {
+      options = JSON.parse(optionsField.buffer.toString())
+    } catch {
+      throw createError(400, 'options field is not a valid JSON')
+    }
   }
 
   await new Promise((resolve, reject) => {
-    const fileStream = intoStream(req.file.buffer)
+    const fileStream = intoStream(fileField.buffer)
 
-    validateCsvFromStream(fileStream)
+    validateCsvFromStream(fileStream, options)
       .on('error', error => reject(createError(400, error.message)))
       .on('complete', () => resolve())
   })
 
-  const {originalName} = req.file
+  const {originalName} = fileField
   const resultFileName = originalName ? `geocoded-${originalName}` : 'geocoded.csv'
 
   res
@@ -54,8 +80,8 @@ app.post('/geocode', upload.single('data'), w(async (req, res) => {
 
   try {
     await pipeline(
-      intoStream(req.file.buffer),
-      createCsvReadStream(),
+      intoStream(fileField.buffer),
+      createCsvReadStream(options),
       createGeocodeStream(ADDOK_SERVICE_URL),
       stringify(),
       res
