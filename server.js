@@ -42,8 +42,8 @@ const uploadFiles = [
 ]
 
 app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
-  const fileField = req.files.find(f => f.fieldname === 'file')
-  const optionsField = req.files.find(f => f.fieldname === 'options')
+  const fileField = (req.files.file || [])[0]
+  const optionsField = (req.files.options || [])[0]
 
   if (!fileField) {
     throw createError(400, 'A CSV file must be provided in file field')
