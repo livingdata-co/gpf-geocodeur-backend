@@ -57,17 +57,18 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@livingdata/tabular-data-helpers@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.3.tgz#06980c2e768168f0516846f2c7ea9e34d2b2409d"
-  integrity sha512-ALVBWOT7GqmnHyeqkUie1hNOhAU9hNuHynppuKAga+mQMLABc0TorEy53AOQ+SzA0tUZobeVhYABNsp+tHCASA==
+"@livingdata/tabular-data-helpers@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.4.tgz#c0dba234ad9f7f33c7100d0f47e52b76f8e5de87"
+  integrity sha512-EKFqgxD7EJwvDoQC8mpJskNCFt7EsIvINW/Hkyyvbt4oL3JQ1L0igSvo0DnqSvHHVMNrwoeKMC55NWdB7GE+2g==
   dependencies:
     buffer "^6.0.3"
-    chardet "^1.4.0"
+    chardet "^1.5.0"
     events "^3.3.0"
     iconv-lite "^0.6.3"
     papaparse "^5.3.2"
-    readable-stream "^4.1.0"
+    pumpify "^2.0.1"
+    readable-stream "^4.2.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -529,7 +530,7 @@ chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chardet@^1.4.0:
+chardet@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-1.5.0.tgz#c35b3e9a5994f7574688d1607a2ea9c723ebca95"
   integrity sha512-Nj3VehbbFs/1ZnJJJaL3ztEf3Nu5Fs6YV/NBs6lyz/iDDHUU+X9QNk5QgPy1/5Rjtb/cGVf+NyazP7kVEJqKRg==
@@ -2836,7 +2837,7 @@ readable-stream@^3.1.1:
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
-readable-stream@^4.1.0:
+readable-stream@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.2.0.tgz#a7ef523d3b39e4962b0db1a1af22777b10eeca46"
   integrity sha512-gJrBHsaI3lgBoGMW/jHZsQ/o/TIWiu5ENCJG1BB7fuCKzpFM8GaS2UoBVt9NO+oI+3FcrBNbUkl3ilDe09aY4A==
