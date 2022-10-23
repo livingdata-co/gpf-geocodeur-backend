@@ -26,7 +26,8 @@
       "comma-dangle": [
         "error",
         "never"
-      ]
+      ],
+      "unicorn/prevent-abbreviations": "off"
     }
   },
   "engines": {
