@@ -42,6 +42,10 @@ const uploadFiles = [
 ]
 
 app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
+  if (!req.files) {
+    throw createError(400, 'Request must contains at least a file')
+  }
+
   const fileField = (req.files.file || [])[0]
   const optionsField = (req.files.options || [])[0]
 
