@@ -7,9 +7,15 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "lint": "xo"
+    "lint": "xo",
+    "start": "node server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
   "devDependencies": {
     "xo": "^0.52.4"
   },
