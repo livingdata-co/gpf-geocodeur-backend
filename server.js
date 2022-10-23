@@ -13,10 +13,13 @@ import contentDisposition from 'content-disposition'
 import intoStream from 'into-stream'
 import stringify from 'csv-write-stream'
 
+import {createGeocodeStream} from 'addok-geocode-stream'
 import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-data-helpers'
 
 import w from './lib/w.js'
 import errorHandler from './lib/error-handler.js'
+
+const ADDOK_SERVICE_URL = process.env.ADDOK_SERVICE_URL || 'https://api-adresse.data.gouv.fr'
 
 const app = express()
 const upload = multer()
@@ -53,6 +56,7 @@ app.post('/geocode', upload.single('data'), w(async (req, res) => {
     await pipeline(
       intoStream(req.file.buffer),
       createCsvReadStream(),
+      createGeocodeStream(ADDOK_SERVICE_URL),
       stringify(),
       res
     )
