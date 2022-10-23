@@ -6,9 +6,23 @@
   "license": "MIT",
   "private": false,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "lint": "xo"
+  },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "xo": "^0.52.4"
+  },
+  "xo": {
+    "semicolon": false,
+    "space": 2,
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "never"
+      ]
+    }
+  },
   "engines": {
     "node": ">= 18"
   }
