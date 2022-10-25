@@ -11,13 +11,19 @@ import multer from 'multer'
 import createError from 'http-errors'
 import contentDisposition from 'content-disposition'
 import intoStream from 'into-stream'
-import stringify from 'csv-write-stream'
 
 import {createGeocodeStream} from 'addok-geocode-stream'
 import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-data-helpers'
 
+import {createWriteStream as createGeoJsonWriteStream} from './lib/writers/geojson.js'
+import {createWriteStream as createCsvWriteStream} from './lib/writers/csv.js'
 import w from './lib/w.js'
 import errorHandler from './lib/error-handler.js'
+
+const OUTPUT_FORMATS = {
+  csv: createCsvWriteStream,
+  geojson: createGeoJsonWriteStream
+}
 
 const ADDOK_SERVICE_URL = process.env.ADDOK_SERVICE_URL || 'https://api-adresse.data.gouv.fr'
 
@@ -67,6 +73,13 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
     }
   }
 
+  if (options.outputFormat && !OUTPUT_FORMATS.includes(options.outputFormat)) {
+    throw createError(400, `Unknown outputFormat: ${options.outputFormat}`)
+  }
+
+  const outputFormat = options.outputFormat || 'csv'
+  const createWriteStream = OUTPUT_FORMATS[outputFormat]
+
   await new Promise((resolve, reject) => {
     const fileStream = intoStream(fileField.buffer)
 
@@ -87,7 +100,7 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
       intoStream(fileField.buffer),
       createCsvReadStream(options),
       createGeocodeStream(ADDOK_SERVICE_URL),
-      stringify(),
+      createWriteStream(),
       res
     )
   } catch (error) {
