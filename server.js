@@ -73,7 +73,7 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
     }
   }
 
-  if (options.outputFormat && !OUTPUT_FORMATS.includes(options.outputFormat)) {
+  if (options.outputFormat && !OUTPUT_FORMATS[options.outputFormat]) {
     throw createError(400, `Unknown outputFormat: ${options.outputFormat}`)
   }
 
