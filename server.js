@@ -19,6 +19,7 @@ import {createWriteStream as createGeoJsonWriteStream} from './lib/writers/geojs
 import {createWriteStream as createCsvWriteStream} from './lib/writers/csv.js'
 import w from './lib/w.js'
 import errorHandler from './lib/error-handler.js'
+import {computeOutputFilename} from './lib/filename.js'
 
 const OUTPUT_FORMATS = {
   csv: createCsvWriteStream,
@@ -89,7 +90,7 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
   })
 
   const {originalName} = fileField
-  const resultFileName = originalName ? `geocoded-${originalName}` : 'geocoded.csv'
+  const resultFileName = computeOutputFilename(originalName || 'result', outputFormat)
 
   res
     .type('csv')
