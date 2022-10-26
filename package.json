@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "lint": "xo",
+    "test": "ava",
     "start": "node server"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "pumpify": "^2.0.1"
   },
   "devDependencies": {
+    "ava": "^5.0.1",
     "xo": "^0.52.4"
   },
   "xo": {
