@@ -271,15 +271,15 @@ acorn@^8.8.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.0.tgz#88c0187620435c7f6015803f5539dae05a9dbea8"
   integrity sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==
 
-addok-geocode-stream@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/addok-geocode-stream/-/addok-geocode-stream-0.13.0.tgz#d1423e1f0dfac6e51a4a13381c19e512b902de5a"
-  integrity sha512-yix7Y+Y0GPdYULoxU9jhkxiwPJt4BFxo8XLx981mW8ey/MReejMyRnLPCjGPIo92Le7vqAY+q38NhKpXTU5gUw==
+addok-geocode-stream@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/addok-geocode-stream/-/addok-geocode-stream-0.14.0.tgz#199b7d6682daa7ab56e820253431b28ade4d5e9a"
+  integrity sha512-SbLcEb7VlznsMGXTyqsx83UagAEbPiEANZVgD3uSo9Wd/yF2lJpBSqp9hd6rMl130GMZG2lQXDSagGfrdStXPg==
   dependencies:
     csv-parser "^3.0.0"
     csv-write-stream "^2.0.0"
     form-data "^4.0.0"
-    got "^12.5.1"
+    got "^12.5.2"
     iconv-lite "^0.6.3"
     jschardet "^3.0.0"
     lodash-es "^4.17.21"
@@ -287,7 +287,7 @@ addok-geocode-stream@^0.13.0:
     parallel-transform "^1.2.0"
     pumpify "^2.0.1"
     strip-bom-stream "^5.0.0"
-    yargs "^17.5.1"
+    yargs "^17.6.0"
 
 aggregate-error@^4.0.0:
   version "4.0.1"
@@ -1857,7 +1857,7 @@ globby@^13.1.1, globby@^13.1.2:
     merge2 "^1.4.1"
     slash "^4.0.0"
 
-got@^12.5.1:
+got@^12.5.2:
   version "12.5.2"
   resolved "https://registry.yarnpkg.com/got/-/got-12.5.2.tgz#2c1b390918961cf50e61cb02d2085ba203d0df45"
   integrity sha512-guHGMSEcsA5m1oPRweXUJnug0vuvlkX9wx5hzOka+ZBrBUOJHU0Z1JcNu3QE5IPGnA5aXUsQHdWOD4eJg9/v3A==
@@ -4037,7 +4037,7 @@ yargs-parser@^21.0.0:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-21.1.1.tgz#9096bceebf990d21bb31fa9516e0ede294a77d35"
   integrity sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==
 
-yargs@^17.5.1:
+yargs@^17.5.1, yargs@^17.6.0:
   version "17.6.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.6.0.tgz#e134900fc1f218bc230192bdec06a0a5f973e46c"
   integrity sha512-8H/wTDqlSwoSnScvV2N/JHfLWOKuh5MVla9hqLjK3nsfyy6Y4kDSYSvkU5YCUEPOSnRXfIyx3Sq+B/IWudTo4g==
