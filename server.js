@@ -78,6 +78,9 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
     throw createError(400, `Unknown outputFormat: ${options.outputFormat}`)
   }
 
+  // TODO: Validate that. Fields may not exists.
+  const geocodeOptions = options.geocodeOptions || {}
+
   const outputFormat = options.outputFormat || 'csv'
   const createWriteStream = OUTPUT_FORMATS[outputFormat]
 
@@ -100,7 +103,12 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
     await pipeline(
       intoStream(fileField.buffer),
       createCsvReadStream(options),
-      createGeocodeStream(ADDOK_SERVICE_URL),
+      createGeocodeStream(ADDOK_SERVICE_URL, {
+        columns: geocodeOptions.q,
+        citycode: geocodeOptions.citycode,
+        lon: geocodeOptions.lon,
+        lat: geocodeOptions.lat
+      }),
       createWriteStream(),
       res
     )
