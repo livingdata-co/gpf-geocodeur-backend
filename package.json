@@ -40,7 +40,8 @@
         "error",
         "never"
       ],
-      "unicorn/prevent-abbreviations": "off"
+      "unicorn/prevent-abbreviations": "off",
+      "import/no-named-default": "off"
     }
   },
   "engines": {
