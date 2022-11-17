@@ -44,6 +44,11 @@
       "unicorn/prevent-abbreviations": "off"
     }
   },
+  "ava": {
+    "environmentVariables": {
+      "STORAGE_FS_DIR": "test/dist"
+    }
+  },
   "engines": {
     "node": ">= 18"
   }
