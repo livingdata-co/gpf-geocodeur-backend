@@ -1,5 +1,5 @@
 import test from 'ava'
-import {readValue, writeValue} from '../lib/redis.js'
+import {readValue, writeValue, prepareObject, hydrateObject} from '../lib/redis.js'
 
 test('readValue', t => {
   t.is(readValue(), undefined)
@@ -20,3 +20,16 @@ test('writeValue', t => {
   t.is(writeValue({foo: 'bar'}), '{"foo":"bar"}')
 })
 
+test('prepareObject', t => {
+  t.deepEqual(
+    prepareObject({foo: 'bar', count: 7, empty: undefined}, {foo: 'string', count: 'integer'}),
+    {foo: 'bar', count: '7'}
+  )
+})
+
+test('hydrateObject', t => {
+  t.deepEqual(
+    hydrateObject({foo: 'bar', count: '7'}, {foo: 'string', count: 'integer'}),
+    {foo: 'bar', count: 7}
+  )
+})
