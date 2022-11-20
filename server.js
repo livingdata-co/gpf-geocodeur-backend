@@ -17,9 +17,9 @@ import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-da
 
 import {createWriteStream as createGeoJsonWriteStream} from './lib/writers/geojson.js'
 import {createWriteStream as createCsvWriteStream} from './lib/writers/csv.js'
-import w from './lib/w.js'
-import errorHandler from './lib/error-handler.js'
-import {computeOutputFilename} from './lib/filename.js'
+import w from './lib/util/w.js'
+import errorHandler from './lib/util/error-handler.js'
+import {computeOutputFilename} from './lib/util/filename.js'
 
 const OUTPUT_FORMATS = {
   csv: createCsvWriteStream,
