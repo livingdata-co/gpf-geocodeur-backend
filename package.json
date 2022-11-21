@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "xo",
     "test": "ava",
-    "start": "node server"
+    "start": "node server",
+    "worker": "node worker"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.213.0",
@@ -31,6 +32,7 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^4.0.0",
     "p-filter": "^3.0.0",
+    "p-limit": "^4.0.0",
     "pumpify": "^2.0.1"
   },
   "devDependencies": {
