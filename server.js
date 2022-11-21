@@ -21,7 +21,7 @@ import w from './lib/util/w.js'
 import errorHandler from './lib/util/error-handler.js'
 import {computeOutputFilename} from './lib/util/filename.js'
 
-import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile} from './lib/models/project.js'
+import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile, getOutputFileDownloadStream} from './lib/models/project.js'
 import {validatePipeline} from './lib/pipeline.js'
 
 const OUTPUT_FORMATS = {
@@ -95,6 +95,19 @@ app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) =>
   await askProcessing(req.params.projectId)
   const project = await getProject(req.params.projectId)
   res.status(202).send(project)
+}))
+
+app.get('/projects/:projectId/output-file', ensureProjectToken, w(async (req, res) => {
+  const project = await getProject(req.params.projectId)
+
+  if (!project.outputFile) {
+    throw createError(404, 'No output file available at the moment')
+  }
+
+  const outputFileStream = await getOutputFileDownloadStream(req.params.projectId)
+
+  res.set('Content-Disposition', contentDisposition(project.outputFile.filename))
+  outputFileStream.pipe(res)
 }))
 
 const uploadFiles = [
