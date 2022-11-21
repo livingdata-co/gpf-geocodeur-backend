@@ -22,6 +22,7 @@ import errorHandler from './lib/util/error-handler.js'
 import {computeOutputFilename} from './lib/util/filename.js'
 
 import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile} from './lib/models/project.js'
+import {validatePipeline} from './lib/pipeline.js'
 
 const OUTPUT_FORMATS = {
   csv: createCsvWriteStream,
@@ -71,8 +72,8 @@ app.get('/projects/:projectId', ensureProjectToken, w(async (req, res) => {
 }))
 
 app.put('/projects/:projectId/pipeline', ensureProjectToken, express.json(), w(async (req, res) => {
-  // TODO: validate pipeline
-  await setPipeline(req.params.projectId, req.body)
+  const pipeline = validatePipeline(req.body)
+  await setPipeline(req.params.projectId, pipeline)
   const project = await getProject(req.params.projectId)
   res.send(project)
 }))
