@@ -21,6 +21,8 @@ import w from './lib/util/w.js'
 import errorHandler from './lib/util/error-handler.js'
 import {computeOutputFilename} from './lib/util/filename.js'
 
+import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile} from './lib/models/project.js'
+
 const OUTPUT_FORMATS = {
   csv: createCsvWriteStream,
   geojson: createGeoJsonWriteStream
@@ -42,6 +44,57 @@ app.use(cors({origin: true}))
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
+
+const ensureProjectToken = w(async (req, res, next) => {
+  if (!req.get('Authorization')) {
+    throw createError(401, 'Authorization token not provided')
+  }
+
+  const token = req.get('Authorization').slice(6)
+  const isSameToken = await checkProjectToken(req.params.projectId, token)
+
+  if (!isSameToken) {
+    throw createError(401, 'Bad token or bad project')
+  }
+
+  next()
+})
+
+app.post('/projects', w(async (req, res) => {
+  const project = await createProject()
+  res.status(201).send(project)
+}))
+
+app.get('/projects/:projectId', ensureProjectToken, w(async (req, res) => {
+  const project = await getProject(req.params.projectId)
+  res.send(project)
+}))
+
+app.put('/projects/:projectId/pipeline', ensureProjectToken, express.json(), w(async (req, res) => {
+  // TODO: validate pipeline
+  await setPipeline(req.params.projectId, req.body)
+  const project = await getProject(req.params.projectId)
+  res.send(project)
+}))
+
+app.put('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res) => {
+  if (!req.get('Content-Disposition') || !req.get('Content-Disposition').includes('filename')) {
+    throw createError(400, 'Filename must be provided through Content-Disposition')
+  }
+
+  const {parameters: {filename}} = contentDisposition.parse(req.get('Content-Disposition'))
+
+  // TODO: handle max file size
+  await setInputFile(req.params.projectId, filename, req)
+  const project = await getProject(req.params.projectId)
+  res.send(project)
+}))
+
+app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) => {
+  await askProcessing(req.params.projectId)
+  const project = await getProject(req.params.projectId)
+  res.status(202).send(project)
+}))
 
 const uploadFiles = [
   {name: 'file', maxCount: 1},
