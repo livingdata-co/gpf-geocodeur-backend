@@ -1030,10 +1030,10 @@
   resolved "https://registry.yarnpkg.com/@ioredis/commands/-/commands-1.2.0.tgz#6d61b3097470af1fdbbe622795b8921d42018e11"
   integrity sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==
 
-"@livingdata/tabular-data-helpers@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.4.tgz#c0dba234ad9f7f33c7100d0f47e52b76f8e5de87"
-  integrity sha512-EKFqgxD7EJwvDoQC8mpJskNCFt7EsIvINW/Hkyyvbt4oL3JQ1L0igSvo0DnqSvHHVMNrwoeKMC55NWdB7GE+2g==
+"@livingdata/tabular-data-helpers@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.5.tgz#5cacbc508ba39b7f11fc819720973d81c7bd96b4"
+  integrity sha512-IHUVFT8g0AACRQBE1Qn1e64fCRIL/+uvMtdJAiGhWXBDYkcZDT2qDjRQ6Xma2oOdQchiHSpxrVepqdaIzmW1Cw==
   dependencies:
     buffer "^6.0.3"
     chardet "^1.5.0"
