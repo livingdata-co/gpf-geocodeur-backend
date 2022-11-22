@@ -99,6 +99,8 @@ async function main() {
 
       console.log(`${projectId} | processed successfully`)
     } catch (error) {
+      await endProcessing(projectId, error)
+
       console.log(`${projectId} | error during processing`)
       console.error(error)
     }
