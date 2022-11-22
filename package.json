@@ -36,8 +36,8 @@
     "pumpify": "^2.0.1"
   },
   "devDependencies": {
-    "ava": "^5.0.1",
-    "xo": "^0.52.4"
+    "ava": "^5.1.0",
+    "xo": "^0.53.1"
   },
   "xo": {
     "semicolon": false,
