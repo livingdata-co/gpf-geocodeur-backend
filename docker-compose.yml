@@ -23,6 +23,8 @@ services:
     container_name: gpf-geocodeur-worker
     environment:
       REDIS_URL: 'redis-server'
+    depends_on:
+      - redis-server
     networks:
       - gpf-geocodeur-api
 
