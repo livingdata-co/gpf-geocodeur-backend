@@ -21,7 +21,7 @@ import w from './lib/util/w.js'
 import errorHandler from './lib/util/error-handler.js'
 import {computeOutputFilename} from './lib/util/filename.js'
 
-import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile, getOutputFileDownloadStream, getInputFileDownloadStream} from './lib/models/project.js'
+import {createProject, setPipeline, getProject, getProcessing, checkProjectToken, askProcessing, setInputFile, getOutputFileDownloadStream, getInputFileDownloadStream} from './lib/models/project.js'
 import {validatePipeline} from './lib/pipeline.js'
 
 const OUTPUT_FORMATS = {
@@ -69,6 +69,11 @@ app.post('/projects', w(async (req, res) => {
 app.get('/projects/:projectId', ensureProjectToken, w(async (req, res) => {
   const project = await getProject(req.params.projectId)
   res.send(project)
+}))
+
+app.get('/projects/:projectId/processing', ensureProjectToken, w(async (req, res) => {
+  const processing = await getProcessing(req.params.projectId)
+  res.send(processing)
 }))
 
 app.put('/projects/:projectId/pipeline', ensureProjectToken, express.json(), w(async (req, res) => {
