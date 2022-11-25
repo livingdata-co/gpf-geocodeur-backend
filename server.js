@@ -112,11 +112,11 @@ app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) =>
   res.status(202).send(project)
 }))
 
-app.get('/projects/:projectId/output-file', ensureProjectToken, w(async (req, res) => {
+app.get('/projects/:projectId/output-file/:token', w(async (req, res) => {
   const project = await getProject(req.params.projectId)
 
-  if (!project.outputFile) {
-    throw createError(404, 'No output file available at the moment')
+  if (!project || !project.outputFile || project.outputFile !== req.params.token) {
+    throw createError(403, 'Unable to access to this file')
   }
 
   const outputFileStream = await getOutputFileDownloadStream(req.params.projectId)
