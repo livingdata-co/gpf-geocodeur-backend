@@ -111,10 +111,10 @@ async function main() {
         geocodingProgress: {readRows: 0, totalRows}
       }))
 
+      const {geocodeOptions, outputFormat} = project.pipeline
+
       const inputFileName = project.inputFile.filename
       const outputFileName = computeOutputFilename(inputFileName || 'result', outputFormat)
-
-      const {geocodeOptions, outputFormat} = project.pipeline
 
       const inputFileStream = await getInputFileDownloadStream(projectId)
       const createWriteStream = OUTPUT_FORMATS[outputFormat]
