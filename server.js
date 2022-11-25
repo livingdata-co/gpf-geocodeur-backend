@@ -11,6 +11,7 @@ import multer from 'multer'
 import createError from 'http-errors'
 import contentDisposition from 'content-disposition'
 import intoStream from 'into-stream'
+import bytes from 'bytes'
 
 import {createGeocodeStream} from 'addok-geocode-stream'
 import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-data-helpers'
@@ -99,6 +100,12 @@ app.put('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res
 
   const {parameters: {filename}} = contentDisposition.parse(req.get('Content-Disposition'))
   const fileSize = Number.parseInt(req.get('Content-Length'), 10)
+
+  const {userParams} = await getProject(req.params.projectId)
+
+  if (userParams.maxFileSize && fileSize > bytes(userParams.maxFileSize)) {
+    throw createError(403, `File too large. Maximum allowed: ${userParams.maxFileSize}`)
+  }
 
   // TODO: handle max file size
   await setInputFile(req.params.projectId, filename, fileSize, req)
