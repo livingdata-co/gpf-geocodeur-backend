@@ -83,10 +83,15 @@ app.put('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res
     throw createError(400, 'Filename must be provided through Content-Disposition')
   }
 
+  if (!req.get('Content-Length')) {
+    throw createError(400, 'File size must be provided through Content-Length')
+  }
+
   const {parameters: {filename}} = contentDisposition.parse(req.get('Content-Disposition'))
+  const fileSize = Number.parseInt(req.get('Content-Length'), 10)
 
   // TODO: handle max file size
-  await setInputFile(req.params.projectId, filename, req)
+  await setInputFile(req.params.projectId, filename, fileSize, req)
   const project = await getProject(req.params.projectId)
   res.send(project)
 }))
