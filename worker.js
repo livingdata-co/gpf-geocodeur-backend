@@ -98,7 +98,7 @@ async function main() {
           .on('complete', async () => {
             totalRows = validation.readRows
             await upLimit(() => updateProcessing(projectId, {
-              validationProgress: {readRows: validation.readRows, readBytes: validation.readBytes, totalBytes: validation.totalBytes}
+              validationProgress: {readRows: validation.readRows, readBytes: validation.readBytes, totalBytes: inputFile.totalBytes}
             }))
             resolve()
           })
