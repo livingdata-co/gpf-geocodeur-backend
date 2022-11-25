@@ -145,7 +145,7 @@ async function main() {
         throw new Error('Geocoding failed')
       }
 
-      await endProcessing(projectId)
+      await upLimit(() => endProcessing(projectId))
 
       console.log(`${projectId} | processed successfully`)
     } catch (error) {
