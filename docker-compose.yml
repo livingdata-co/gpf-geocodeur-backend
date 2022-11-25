@@ -17,6 +17,15 @@ services:
     networks:
       - gpf-geocodeur-back
 
+  worker:
+    build: .
+    command: 'node worker.js'
+    container_name: gpf-geocodeur-worker
+    environment:
+      REDIS_URL: 'redis-server'
+    networks:
+      - gpf-geocodeur-back
+
   redis-server:
     image: redis
     restart: always
