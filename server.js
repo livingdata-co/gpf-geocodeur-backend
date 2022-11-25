@@ -128,6 +128,8 @@ app.get('/projects/:projectId/output-file/:token', w(async (req, res) => {
   const outputFileStream = await getOutputFileDownloadStream(req.params.projectId)
 
   res.set('Content-Disposition', contentDisposition(project.outputFile.filename))
+  req.set('Content-Length', project.outputFile.size)
+  req.set('Content-Type', 'application/octet-stream')
   outputFileStream.pipe(res)
 }))
 
