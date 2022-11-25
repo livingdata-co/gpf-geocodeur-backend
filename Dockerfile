@@ -20,4 +20,4 @@ ENV NODE_ENV=production
 
 EXPOSE 5000
 
-CMD ["/bin/sh", "./start.sh"]
+CMD ["node", "server.js"]
