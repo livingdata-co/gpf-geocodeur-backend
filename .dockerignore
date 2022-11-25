@@ -9,5 +9,6 @@ docker-compose.yml
 README.md
 
 .git
+.env
 
 node_modules
