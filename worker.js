@@ -140,7 +140,7 @@ async function main() {
         await setOutputFile(projectId, outputFileName, fullGeocodeStream)
       } catch (error) {
         await upLimit(() => updateProcessing(projectId, {
-          validationError: error.message
+          geocodingError: error.message
         }))
         throw new Error('Geocoding failed')
       }
