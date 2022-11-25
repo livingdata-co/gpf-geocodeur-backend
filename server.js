@@ -107,7 +107,6 @@ app.put('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res
     throw createError(403, `File too large. Maximum allowed: ${userParams.maxFileSize}`)
   }
 
-  // TODO: handle max file size
   await setInputFile(req.params.projectId, filename, fileSize, req)
   const project = await getProject(req.params.projectId)
   res.send(project)
@@ -122,7 +121,7 @@ app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) =>
 app.get('/projects/:projectId/output-file/:token', w(async (req, res) => {
   const project = await getProject(req.params.projectId)
 
-  if (!project || !project.outputFile || project.outputFile !== req.params.token) {
+  if (!project || !project.outputFile || project.outputFile.token !== req.params.token) {
     throw createError(403, 'Unable to access to this file')
   }
 
