@@ -1030,10 +1030,10 @@
   resolved "https://registry.yarnpkg.com/@ioredis/commands/-/commands-1.2.0.tgz#6d61b3097470af1fdbbe622795b8921d42018e11"
   integrity sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==
 
-"@livingdata/tabular-data-helpers@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.5.tgz#5cacbc508ba39b7f11fc819720973d81c7bd96b4"
-  integrity sha512-IHUVFT8g0AACRQBE1Qn1e64fCRIL/+uvMtdJAiGhWXBDYkcZDT2qDjRQ6Xma2oOdQchiHSpxrVepqdaIzmW1Cw==
+"@livingdata/tabular-data-helpers@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@livingdata/tabular-data-helpers/-/tabular-data-helpers-0.0.6.tgz#2cc56038dab5a5114ea42775ba560c816510abad"
+  integrity sha512-nqzN10i9OJm/uvelJ4KIJ+DnJll/KQyCnktSesP9F0nQDr/y3NEq/vQGUaTseS+EtIm4eWRX9gAK4k5o+cSacA==
   dependencies:
     buffer "^6.0.3"
     chardet "^1.5.0"
@@ -1250,10 +1250,10 @@ acorn@^8.8.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.1.tgz#0a3f9cbecc4ec3bea6f0a80b66ae8dd2da250b73"
   integrity sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==
 
-addok-geocode-stream@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/addok-geocode-stream/-/addok-geocode-stream-0.15.0.tgz#f222cdde8526f3fab732b70e9c0773fd12c67b3c"
-  integrity sha512-FhKDH3NsSu4ZpfZ2yotyfu/N2Lotd6ZrV8bZrcayUC0fVXqDcfMkLpZ5WFa2CozTeiZpIBRFg8DfXmkwTLUdDw==
+addok-geocode-stream@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/addok-geocode-stream/-/addok-geocode-stream-0.16.0.tgz#321d14018a2e83f1860b1b17966e9673acabd478"
+  integrity sha512-19VyaeD/iSnfzkqg76/q8ri8E4klwibob1+ne2oY4EUFTHypl8O7Qfr8pUUCkK7ODT+D2QswIScVySUl/CVYYg==
   dependencies:
     csv-parser "^3.0.0"
     csv-write-stream "^2.0.0"
