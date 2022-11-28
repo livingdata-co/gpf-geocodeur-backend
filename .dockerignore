@@ -1,14 +1,18 @@
 .gitignore
 .dockerignore
-Dockerfile
+Dockerfile*
 docker-compose.yml
 
 *.log
 *.sample
-
-README.md
-
-.git
 .env
 
+.git
+.github
+
+
 node_modules
+coverage
+data
+dist
+Procfile
