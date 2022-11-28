@@ -11,6 +11,7 @@ import multer from 'multer'
 import createError from 'http-errors'
 import contentDisposition from 'content-disposition'
 import intoStream from 'into-stream'
+import bytes from 'bytes'
 
 import {createGeocodeStream} from 'addok-geocode-stream'
 import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-data-helpers'
@@ -21,7 +22,7 @@ import w from './lib/util/w.js'
 import errorHandler from './lib/util/error-handler.js'
 import {computeOutputFilename} from './lib/util/filename.js'
 
-import {createProject, setPipeline, getProject, checkProjectToken, askProcessing, setInputFile, getOutputFileDownloadStream, getInputFileDownloadStream} from './lib/models/project.js'
+import {createProject, setPipeline, getProject, getProcessing, checkProjectToken, askProcessing, setInputFile, getOutputFileDownloadStream, deleteProject} from './lib/models/project.js'
 import {validatePipeline} from './lib/pipeline.js'
 
 const OUTPUT_FORMATS = {
@@ -71,6 +72,16 @@ app.get('/projects/:projectId', ensureProjectToken, w(async (req, res) => {
   res.send(project)
 }))
 
+app.delete('/projects/:projectId', ensureProjectToken, w(async (req, res) => {
+  await deleteProject(req.params.projectId)
+  res.sendStatus(204)
+}))
+
+app.get('/projects/:projectId/processing', ensureProjectToken, w(async (req, res) => {
+  const processing = await getProcessing(req.params.projectId)
+  res.send(processing)
+}))
+
 app.put('/projects/:projectId/pipeline', ensureProjectToken, express.json(), w(async (req, res) => {
   const pipeline = validatePipeline(req.body)
   await setPipeline(req.params.projectId, pipeline)
@@ -83,25 +94,22 @@ app.put('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res
     throw createError(400, 'Filename must be provided through Content-Disposition')
   }
 
-  const {parameters: {filename}} = contentDisposition.parse(req.get('Content-Disposition'))
-
-  // TODO: handle max file size
-  await setInputFile(req.params.projectId, filename, req)
-  const project = await getProject(req.params.projectId)
-  res.send(project)
-}))
-
-app.get('/projects/:projectId/input-file', ensureProjectToken, w(async (req, res) => {
-  const project = await getProject(req.params.projectId)
-
-  if (!project.inputFile) {
-    throw createError(404, 'No input file available at the moment')
+  if (!req.get('Content-Length')) {
+    throw createError(400, 'File size must be provided through Content-Length')
   }
 
-  const inputFileStream = await getInputFileDownloadStream(req.params.projectId)
+  const {parameters: {filename}} = contentDisposition.parse(req.get('Content-Disposition'))
+  const fileSize = Number.parseInt(req.get('Content-Length'), 10)
 
-  res.set('Content-Disposition', project.inputFile.filename)
-  inputFileStream.pipe(res)
+  const {userParams} = await getProject(req.params.projectId)
+
+  if (userParams.maxFileSize && fileSize > bytes(userParams.maxFileSize)) {
+    throw createError(403, `File too large. Maximum allowed: ${userParams.maxFileSize}`)
+  }
+
+  await setInputFile(req.params.projectId, filename, fileSize, req)
+  const project = await getProject(req.params.projectId)
+  res.send(project)
 }))
 
 app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) => {
@@ -110,16 +118,18 @@ app.post('/projects/:projectId/start', ensureProjectToken, w(async (req, res) =>
   res.status(202).send(project)
 }))
 
-app.get('/projects/:projectId/output-file', ensureProjectToken, w(async (req, res) => {
+app.get('/projects/:projectId/output-file/:token', w(async (req, res) => {
   const project = await getProject(req.params.projectId)
 
-  if (!project.outputFile) {
-    throw createError(404, 'No output file available at the moment')
+  if (!project || !project.outputFile || project.outputFile.token !== req.params.token) {
+    throw createError(403, 'Unable to access to this file')
   }
 
   const outputFileStream = await getOutputFileDownloadStream(req.params.projectId)
 
   res.set('Content-Disposition', contentDisposition(project.outputFile.filename))
+  res.set('Content-Length', project.outputFile.size)
+  res.set('Content-Type', 'application/octet-stream')
   outputFileStream.pipe(res)
 }))
 
