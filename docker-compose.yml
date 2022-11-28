@@ -5,7 +5,7 @@ services:
     build: .
     container_name: gpf-geocodeur-api
     environment:
-      REDIS_URL: 'redis-server'
+      REDIS_URL: redis://redis-server
     env_file:
       - .env
     ports:
@@ -15,34 +15,31 @@ services:
     links:
       - redis-server
     networks:
-      - gpf-geocodeur-api
+      - gpf-geocodeur-backend
 
   worker:
     build: .
-    command: 'node worker.js'
+    command: node worker.js
     container_name: gpf-geocodeur-worker
     environment:
-      REDIS_URL: 'redis-server'
+      REDIS_URL: redis://redis-server
     depends_on:
       - redis-server
     networks:
-      - gpf-geocodeur-api
+      - gpf-geocodeur-backend
 
   redis-server:
     image: redis
     restart: always
     container_name: redis-server
-    ports:
-      - '6379:6379'
     volumes:
       - redis-db:/data/db
     networks:
-      - gpf-geocodeur-api
+      - gpf-geocodeur-backend
 
 volumes:
   redis-db:
     driver: local
 
 networks:
-  gpf-geocodeur-api:
-    name: gpf-geocodeur-network
+  gpf-geocodeur-backend:
