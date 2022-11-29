@@ -30,7 +30,7 @@ const OUTPUT_FORMATS = {
   geojson: createGeoJsonWriteStream
 }
 
-const ADDOK_SERVICE_URL = process.env.ADDOK_SERVICE_URL || 'https://api-adresse.data.gouv.fr'
+const {ADDOK_SERVICE_URL} = process.env
 
 const app = express()
 const upload = multer({
