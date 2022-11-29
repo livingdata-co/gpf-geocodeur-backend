@@ -11,7 +11,7 @@ import pumpify from 'pumpify'
 import {createGeocodeStream} from 'addok-geocode-stream'
 import {validateCsvFromStream, createCsvReadStream} from '@livingdata/tabular-data-helpers'
 
-import {processNext, getInputFileDownloadStream, getProject, setOutputFile, endProcessing, updateProcessing, getStalledProjects, resetProcessing} from './lib/models/project.js'
+import {processNext, getInputFileDownloadStream, getProject, setOutputFile, endProcessing, updateProcessing, getStalledProjects, resetProcessing, askProcessing} from './lib/models/project.js'
 
 import {createWriteStream as createGeoJsonWriteStream} from './lib/writers/geojson.js'
 import {createWriteStream as createCsvWriteStream} from './lib/writers/csv.js'
@@ -164,7 +164,10 @@ async function main() {
     }
 
     const stalledProjects = await getStalledProjects()
-    await Promise.all(stalledProjects.map(projectId => resetProcessing(projectId)))
+    await Promise.all(stalledProjects.map(async projectId => {
+      await resetProcessing(projectId)
+      await askProcessing(projectId)
+    }))
   }, 1000)
 }
 
