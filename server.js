@@ -194,6 +194,7 @@ app.post('/geocode', upload.fields(uploadFiles), w(async (req, res) => {
       intoStream(fileField.buffer),
       createCsvReadStream(options),
       createGeocodeStream(ADDOK_SERVICE_URL, {
+        serviceType: 'batch',
         columns: geocodeOptions.q,
         citycode: geocodeOptions.citycode,
         lon: geocodeOptions.lon,

@@ -123,6 +123,7 @@ async function main() {
         inputFileStream,
         createCsvReadStream(project.pipeline),
         createGeocodeStream(ADDOK_SERVICE_URL, {
+          serviceType: 'batch',
           columns: geocodeOptions.q,
           citycode: geocodeOptions.citycode,
           lon: geocodeOptions.lon,
