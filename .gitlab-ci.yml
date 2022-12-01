@@ -1,0 +1,18 @@
+image: node:18
+
+services:
+  - redis:latest
+
+cache:
+  paths:
+    - node_modules/
+
+lint:
+  script:
+    - yarn --frozen-lockfile
+    - yarn lint
+
+test:
+  script:
+    - yarn --frozen-lockfile
+    - yarn test
