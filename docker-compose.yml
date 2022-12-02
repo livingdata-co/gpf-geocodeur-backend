@@ -3,7 +3,7 @@ version: '3.9'
 services:
   api:
     build: .
-    image: ${REGISTRY}gpf-geocodeur-api:v1
+    image: ${REGISTRY}gpf-geocodeur-api
     container_name: gpf-geocodeur-api
     environment:
       REDIS_URL: redis://redis-server
@@ -22,7 +22,7 @@ services:
 
   worker:
     build: .
-    image: ${REGISTRY}gpf-geocodeur-worker:v1
+    image: ${REGISTRY}gpf-geocodeur-worker
     command: 'node worker.js'
     container_name: gpf-geocodeur-worker
     environment:
