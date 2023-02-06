@@ -7,6 +7,7 @@ services:
     container_name: gpf-geocodeur-api
     environment:
       REDIS_URL: redis://redis-server
+      ADDOK_SERVICE_URL: http://addok-server
     env_file:
       - .env
     ports:
@@ -27,6 +28,7 @@ services:
     container_name: gpf-geocodeur-worker
     environment:
       REDIS_URL: redis://redis-server
+      ADDOK_SERVICE_URL: http://addok-server
     env_file:
       - .env
     depends_on:
