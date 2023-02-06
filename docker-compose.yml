@@ -8,6 +8,11 @@ services:
     environment:
       REDIS_URL: redis://redis-server
       ADDOK_SERVICE_URL: http://addok-server
+      STORAGE_S3_REGION: ${STORAGE_S3_REGION}
+      STORAGE_S3_ENDPOINT: ${STORAGE_S3_ENDPOINT}
+      STORAGE_S3_ACCESS_KEY: ${STORAGE_S3_ACCESS_KEY}
+      STORAGE_S3_SECRET_KEY: ${STORAGE_S3_SECRET_KEY}
+      STORAGE_S3_BUCKET_NAME: ${STORAGE_S3_BUCKET_NAME}
     env_file:
       - .env
     ports:
