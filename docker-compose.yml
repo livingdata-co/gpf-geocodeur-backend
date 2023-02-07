@@ -22,7 +22,7 @@ services:
     links:
       - redis-server
     networks:
-      - gpf-geocodeur-api-network
+      - gpf-geocodeur-api
     volumes:
       - data-storage:/app/data
 
@@ -39,7 +39,7 @@ services:
     depends_on:
       - redis-server
     networks:
-      - gpf-geocodeur-api-network
+      - gpf-geocodeur-api
     volumes:
       - data-storage:/app/data
 
@@ -52,7 +52,7 @@ services:
     volumes:
       - redis-db:/data/db
     networks:
-      - gpf-geocodeur-api-network
+      - gpf-geocodeur-api
 
 volumes:
   data-storage:
@@ -60,4 +60,5 @@ volumes:
     driver: local
 
 networks:
-  gpf-geocodeur-api-network:
+  gpf-geocodeur-api:
+    name: gpf-geocodeur-network
