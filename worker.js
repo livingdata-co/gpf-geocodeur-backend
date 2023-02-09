@@ -122,9 +122,10 @@ async function main() {
       const fullGeocodeStream = pumpify(
         inputFileStream,
         createCsvReadStream(project.pipeline),
-        createGeocodeStream(ADDOK_SERVICE_URL, {
+        createGeocodeStream({
+          serviceUrl: ADDOK_SERVICE_URL,
           concurrency: 2,
-          serviceType: 'batch',
+          strategy: 'batch',
           columns: geocodeOptions.q,
           citycode: geocodeOptions.citycode,
           lon: geocodeOptions.lon,
