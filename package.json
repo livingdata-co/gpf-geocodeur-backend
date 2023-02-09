@@ -1,7 +1,6 @@
 {
   "name": "@geoplateforme/geocodeur-backend",
   "version": "0.0.0",
-  "repository": "https://github.com/livingdata-co/gpf-geocodeur-backend",
   "author": "Jérôme Desboeufs <jerome@livingdata.co>",
   "license": "MIT",
   "private": false,
