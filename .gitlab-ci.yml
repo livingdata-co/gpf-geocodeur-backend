@@ -1,5 +1,11 @@
 image: node:18
 
+include:
+  - project: geoplateforme/templates
+    ref: main
+    file:
+      - '/ci/docker.yml'
+
 services:
   - redis:latest
 
