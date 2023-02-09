@@ -9,7 +9,7 @@ docker-compose.yml
 
 .git
 .github
-
+.gitlab-ci.yml
 
 node_modules
 coverage

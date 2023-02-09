@@ -1,5 +1,4 @@
-# 1/2 Create build image
-FROM node:18-alpine AS build
+FROM node:18-alpine
 
 RUN mkdir /app
 WORKDIR /app
@@ -11,6 +10,6 @@ COPY . .
 
 ENV NODE_ENV=production
 
+USER node
 EXPOSE 5000
-
 CMD ["node", "server.js"]
